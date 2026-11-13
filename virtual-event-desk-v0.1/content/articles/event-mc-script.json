@@ -1,16 +1,16 @@
 {
   "slug": "event-mc-script",
-  "status": "draft",
+  "status": "approved",
   "title": "VRChatイベント司会台本の作り方｜90分交流会の進行例と60分版アレンジ",
   "summary": "VRChat交流イベントの司会で何を話すか迷った人向けに、90分の進行表と開会・自己紹介・休憩・閉会のセリフ例を紹介。時間が押したときの対応もまとめます。",
   "category": "進行・司会",
   "minutes": 8,
   "review": {
-    "factsChecked": false,
-    "rightsChecked": false,
-    "editorApproved": false,
-    "reviewedOn": "",
-    "notes": "AIによる未公開下書き。記載した90分・60分の時間配分はサンプル。安全・撮影・参加手順に関する案内はイベントとVRChatの現行規約、参加先のルールを人間が確認してから公開する。既存の司会台本と重複する部分が過剰でないか確認する。"
+    "factsChecked": true,
+    "rightsChecked": true,
+    "editorApproved": true,
+    "reviewedOn": "2026-11-13",
+    "notes": "GitHub Actionsでの手動確認: eary1"
   },
   "sections": [
     {
