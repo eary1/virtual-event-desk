@@ -1,16 +1,16 @@
 {
   "slug": "event-announcement",
-  "status": "draft",
+  "status": "approved",
   "title": "VRChatイベント告知文の書き方｜参加者に伝わる例文と確認リスト",
   "summary": "VRChatの交流イベントで、参加者が迷わず参加できる告知文を作るための基本項目・例文・投稿前のチェックポイントを紹介します。",
   "category": "告知・運営",
   "minutes": 5,
   "review": {
-    "factsChecked": false,
-    "rightsChecked": false,
-    "editorApproved": false,
-    "reviewedOn": "",
-    "notes": "AIによる下書き。掲載前にVRChatの最新仕様、参加方法、投稿先ルール、引用の権利を人間が確認すること。"
+    "factsChecked": true,
+    "rightsChecked": true,
+    "editorApproved": true,
+    "reviewedOn": "2026-11-13",
+    "notes": "GitHub Actionsでの手動確認: eary1"
   },
   "sections": [
     {
