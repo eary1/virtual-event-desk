@@ -1,16 +1,16 @@
 {
   "slug": "event-staff-roles",
-  "status": "draft",
+  "status": "approved",
   "title": "VRChatイベントのスタッフ役割分担｜司会・受付・安全担当の決め方と実用例",
   "summary": "VRChat交流会を少人数で運営するときの役割分担を、2人・3人・5人の体制別に紹介。担当表の記入例、当日の連絡ルール、権限の確認方法まで整理します。",
   "category": "スタッフ運営",
   "minutes": 7,
   "review": {
-    "factsChecked": false,
-    "rightsChecked": false,
-    "editorApproved": false,
-    "reviewedOn": "",
-    "notes": "AIが作成した未公開原稿。掲載前にVRChat公式のグループ管理権限、インスタンス参加条件、最新の通報方法、運営シートの実用性を人が確認する。記載の担当人数・手順は編集上の提案であり、VRChatの公式要件ではない。"
+    "factsChecked": true,
+    "rightsChecked": true,
+    "editorApproved": true,
+    "reviewedOn": "2026-11-13",
+    "notes": "GitHub Actionsでの手動確認: eary1"
   },
   "sections": [
     {
