@@ -1,0 +1,61 @@
+<!doctype html>
+<html lang="ja">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="robots" content="noindex,nofollow">
+<meta name="theme-color" content="#0b1120">
+<title>記事レビュー | バーチャルイベント準備室</title>
+<meta name="description" content="記事の下書きを確認し、GitHub Actionsから公開準備を進める編集用ページ。">
+<link rel="icon" type="image/svg+xml" href="/assets/favicon.svg">
+<link rel="stylesheet" href="/assets/style.css">
+<link rel="stylesheet" href="/assets/editor.css">
+<script defer src="/assets/editor.js"></script>
+</head>
+<body>
+<a class="skip-link" href="#main">本文へ移動</a>
+<header class="site-header"><div class="wrap header-inner"><a class="brand" href="/"><span class="brand-logo">✦</span><span class="brand-name">バーチャルイベント準備室<span class="brand-small">EDITOR PREVIEW · 非公式</span></span></a><nav class="editor-nav"><a href="/">サイトへ戻る</a><a href="https://github.com/eary1/virtual-event-desk" target="_blank" rel="noopener noreferrer">GitHub</a></nav></div></header>
+<main id="main">
+<section class="page-heading"><div class="wrap"><span class="label-pill">Ver.0.3 · 編集者向け</span><h1>AI記事レビュー</h1><p>記事の内容と出典を確認し、GitHubで公開準備を進めます。ここから直接記事が公開されることはありません。</p></div></section>
+<section class="wrap editor-space">
+<div class="notice editor-notice"><strong>公開ページ・閲覧専用：</strong>この画面にログイン機能はありません。第三者もURLを知れば閲覧できます。記事の下書きも公開GitHubリポジトリから読み込んでいます。公開承認・変更はGitHubへのログインと操作権限が必要です。パスワードやアクセストークンを入力しないでください。</div>
+<div class="editor-grid">
+<aside class="form-card editor-sidebar" aria-label="記事一覧">
+<div class="editor-heading"><h2>下書き一覧</h2><button class="btn btn-outline btn-small" id="refresh" type="button">更新</button></div>
+<p class="small-muted" id="load-status" role="status">GitHubから記事データを読み込んでいます…</p>
+<div id="article-list" class="editor-article-list"></div>
+<p class="small-muted">JSONの更新はリポジトリ側で行います。新しい記事を追加すると、次回読み込み時に表示されます。</p>
+</aside>
+<div class="editor-content">
+<div class="result-card" id="empty-state"><h2>記事を選択してください</h2><p class="muted">左の下書き一覧からレビュー対象の記事を開けます。</p></div>
+<div id="review-panel" hidden>
+<div class="result-card editor-article">
+<div class="editor-heading"><div><span id="article-status" class="label-pill">下書き</span><h2 id="article-title" class="editor-title"></h2><p id="article-summary" class="muted"></p></div></div>
+<div class="editor-meta"><span id="article-category"></span><span id="article-minutes"></span><code id="article-slug"></code></div>
+<div id="article-body" class="editor-body"></div>
+<h3>参考資料</h3><ul id="article-sources" class="info-list"></ul>
+<p id="article-notes" class="small-muted"></p>
+</div>
+<div class="result-card editor-approval">
+<h2>確認チェックリスト</h2>
+<p class="muted">AIの自動審査とは別に、必ず人間が内容と根拠を確認してください。</p>
+<label class="editor-check"><input type="checkbox" id="facts-check"><span>本文と参考資料を照合し、日時・公式仕様・リンクの誤りがないことを確認した</span></label>
+<label class="editor-check"><input type="checkbox" id="rights-check"><span>著作権・引用・広告表記・公開範囲を確認した</span></label>
+<label class="editor-check"><input type="checkbox" id="approve-check"><span>記事全文を読み、公開の準備を進めることに同意する</span></label>
+<div class="editor-actions">
+<button id="copy-slug" class="btn btn-outline" type="button">記事IDをコピー</button>
+<a id="approve-link" class="btn editor-action-disabled" href="https://github.com/eary1/virtual-event-desk/actions/workflows/approve-article.yml" target="_blank" rel="noopener noreferrer" aria-disabled="true">GitHubで承認・公開準備 →</a>
+</div>
+<p class="small-muted" id="approval-status" role="status">すべてのチェックを完了するとGitHubへのリンクを使用できます。</p>
+<details class="editor-instructions"><summary>承認した後の流れ</summary>
+<ol><li>GitHubにログインし、「Run workflow」をクリック。</li><li>Branchを <code>main</code> にし、記事IDを入力。</li><li>確認内容に対応する3つのチェックを有効にして実行。</li><li>完了ログの「Compare &amp; pull request」から変更を確認してプルリクエストを作成。</li><li>最終的にマージして初めて公開サイトに反映されます。</li></ol>
+<p>この手順はGitHubのアカウント権限で保護されています。ここでチェックした値はGitHubには送信されません。</p></details>
+</div>
+</div>
+</div>
+</div>
+</section>
+</main>
+<footer class="site-footer"><div class="wrap footer-inner"><div><strong>✦ バーチャルイベント準備室</strong><p class="footer-note">この編集用ページは非公式・公開の閲覧画面です。承認にはGitHubの権限が必要です。</p></div><nav class="footer-links"><a href="/">ホーム</a><a href="/guides/">公開記事</a><a href="/privacy/">プライバシー</a></nav></div></footer>
+</body>
+</html>

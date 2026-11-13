@@ -1,0 +1,75 @@
+name: Approve article (prepare PR branch)
+on:
+  workflow_dispatch:
+    inputs:
+      article_slug:
+        description: "記事ID (例: event-announcement)"
+        required: true
+        type: string
+      confirm_facts:
+        description: "本文・出典・リンクを確認した"
+        type: boolean
+        required: true
+        default: false
+      confirm_rights:
+        description: "権利・引用・広告表記を確認した"
+        type: boolean
+        required: true
+        default: false
+      confirm_final:
+        description: "公開用PRの作成を承認する"
+        type: boolean
+        required: true
+        default: false
+permissions:
+  contents: write
+concurrency:
+  group: approve-article-${{ github.event.inputs.article_slug }}
+  cancel-in-progress: false
+jobs:
+  prepare-publishing-branch:
+    if: ${{ inputs.confirm_facts && inputs.confirm_rights && inputs.confirm_final }}
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          ref: main
+          persist-credentials: true
+      - uses: actions/setup-node@v4
+        with:
+          node-version: "22"
+      - name: Validate input
+        env:
+          ARTICLE_SLUG: ${{ inputs.article_slug }}
+        run: |
+          if [[ ! "$ARTICLE_SLUG" =~ ^[a-z0-9]+(-[a-z0-9]+)*$ ]]; then
+            echo "Invalid article slug"; exit 1
+          fi
+      - name: Approve and generate static HTML
+        working-directory: virtual-event-desk-v0.1
+        env:
+          ARTICLE_SLUG: ${{ inputs.article_slug }}
+          CONFIRM_FACTS: ${{ inputs.confirm_facts }}
+          CONFIRM_RIGHTS: ${{ inputs.confirm_rights }}
+          CONFIRM_FINAL: ${{ inputs.confirm_final }}
+        run: |
+          node scripts/approve-article.mjs
+          node scripts/guides.mjs validate
+          node scripts/guides.mjs build
+          node scripts/guides.mjs verify
+          node --test scripts/guides.test.mjs
+      - name: Create a branch for the editor to review
+        env:
+          ARTICLE_SLUG: ${{ inputs.article_slug }}
+        run: |
+          BRANCH="publish/${ARTICLE_SLUG}-${GITHUB_RUN_ID}"
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git checkout -b "$BRANCH"
+          git add virtual-event-desk-v0.1/content/articles virtual-event-desk-v0.1/public/guides
+          if git diff --cached --quiet; then echo "No changes"; exit 1; fi
+          git commit -m "content: prepare reviewed article ${ARTICLE_SLUG}"
+          git push origin "$BRANCH"
+          echo "### 公開用PRを作成してください" >> "$GITHUB_STEP_SUMMARY"
+          echo "[変更を開く](https://github.com/${GITHUB_REPOSITORY}/compare/main...${BRANCH}?expand=1)" >> "$GITHUB_STEP_SUMMARY"
+          echo "Create pull requestを押し、変更内容をレビューしてからmainへマージします。" >> "$GITHUB_STEP_SUMMARY"

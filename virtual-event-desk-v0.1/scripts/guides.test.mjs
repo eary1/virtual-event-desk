@@ -10,7 +10,7 @@ test('initial draft passes structure validation', () => {
 });
 
 test('cannot approve without human review gates', () => {
-  const unreviewed = { ...draft, status: 'approved' };
+  const unreviewed = { ...draft, status: 'approved', review: { factsChecked: false, rightsChecked: false, editorApproved: false, reviewedOn: '' } };
   assert.ok(validateArticle(unreviewed).length > 0);
   const reviewed = {
     ...draft,
