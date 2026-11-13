@@ -10,7 +10,7 @@
 - public/guides/：実際に公開されるHTML
 - リポジトリ直下の .github/workflows/guides-ci.yml：プルリクエストのチェック
 
-最初の原稿は content/articles/event-announcement.json にあります。**まだ公開されません。**
+最初の記事 `event-announcement.json` はすでに承認・公開済みです。Ver.0.7では `event-staff-roles.json` と `event-mc-script.json` を新規作成し、いずれも `draft`（未承認・未公開）のままにしています。
 
 ## AIを4役に分ける指示文
 
@@ -26,6 +26,10 @@ VRChatのイベント告知について、読者の悩みと公式資料を調�
 ### ④ 修正担当
 不合格部分を修正し、根拠がない内容は削除してください。最終原稿を既存のJSON形式へ変換し、変更点と人間が確認すべき事項を提示してください。
 
+## ブラウザのレビュー画面（Ver.0.3以降）
+
+サイトの `/editor/` では、`main` ブランチに取り込まれた原稿JSONを閲覧できます。ここでのチェック操作だけでは公開されません。人間が本文・最新の公式資料・利用条件を確認し、GitHub Actionsの `Approve article (prepare PR branch)` を手動実行したあと、生成された公開用PRの内容を再確認してからマージしてください。
+
 ## 承認して公開する手順
 
 1. 人間が原稿、参考URL、表現、著作権、当日の参加ルールを確認する。
@@ -36,7 +40,7 @@ VRChatのイベント告知について、読者の悩みと公式資料を調�
     node scripts/guides.mjs validate
     node scripts/guides.mjs build
     node scripts/guides.mjs verify
-    node --test scripts/guides.test.mjs
+    node --test scripts/guides.test.mjs scripts/draft-review.test.mjs
 
 5. 生成された記事HTMLと一覧HTMLを一緒にGitHubへコミットする。
 6. プルリクエストで内容を確認してmainへマージすると、Cloudflareの本番サイトへ反映される。
