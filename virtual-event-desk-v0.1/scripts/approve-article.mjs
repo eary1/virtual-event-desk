@@ -1,0 +1,15 @@
+import { readFile, writeFile } from 'node:fs/promises';
+import path from 'node:path';
+import { fileURLToPath } from 'node:url';
+const root = fileURLToPath(new URL('../', import.meta.url));
+const slug = process.env.ARTICLE_SLUG || '';
+if (!/^[a-z0-9]+(?:-[a-z0-9]+)*$/.test(slug)) throw new Error('記事IDの形式が不正です');
+if (['CONFIRM_FACTS','CONFIRM_RIGHTS','CONFIRM_FINAL'].some(key => process.env[key] !== 'true')) throw new Error('人間の確認項目が未完了です');
+if (process.env.GITHUB_EVENT_NAME !== 'workflow_dispatch' || process.env.GITHUB_REF !== 'refs/heads/main') throw new Error('mainを基点とする手動実行のみ許可');
+const file = path.join(root,'content','articles',slug+'.json');
+const article = JSON.parse(await readFile(file,'utf8'));
+if (article.slug !== slug || article.status !== 'draft') throw new Error('未承認の下書きではありません');
+article.status = 'approved';
+article.review = { ...article.review, factsChecked:true, rightsChecked:true, editorApproved:true, reviewedOn:new Date().toISOString().slice(0,10), notes:'GitHub Actionsでの手動確認: '+(process.env.GITHUB_ACTOR||'unknown') };
+await writeFile(file, JSON.stringify(article,null,2)+'\n');
+console.log('公開用ブランチを準備しました。PRのマージまで公開されません。');
