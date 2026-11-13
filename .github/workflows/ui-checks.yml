@@ -1,0 +1,27 @@
+name: UI readability checks
+
+on:
+  pull_request:
+    paths:
+      - "virtual-event-desk-v0.1/public/**"
+      - "virtual-event-desk-v0.1/scripts/check-ui.mjs"
+      - ".github/workflows/ui-checks.yml"
+  push:
+    branches: [main]
+    paths:
+      - "virtual-event-desk-v0.1/public/**"
+      - "virtual-event-desk-v0.1/scripts/check-ui.mjs"
+
+permissions:
+  contents: read
+
+jobs:
+  site-ui:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: "22"
+      - name: Validate site structure and primary button contrast
+        run: node virtual-event-desk-v0.1/scripts/check-ui.mjs
