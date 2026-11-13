@@ -56,7 +56,9 @@ jobs:
           node scripts/approve-article.mjs
           node scripts/guides.mjs validate
           node scripts/guides.mjs build
+          node scripts/seo.mjs build
           node scripts/guides.mjs verify
+          node scripts/seo.mjs verify
           node --test scripts/guides.test.mjs
       - name: Create a branch for the editor to review
         env:
@@ -66,7 +68,7 @@ jobs:
           git config user.name "github-actions[bot]"
           git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
           git checkout -b "$BRANCH"
-          git add virtual-event-desk-v0.1/content/articles virtual-event-desk-v0.1/public/guides
+          git add virtual-event-desk-v0.1/content/articles virtual-event-desk-v0.1/public/guides virtual-event-desk-v0.1/public/sitemap.xml
           if git diff --cached --quiet; then echo "No changes"; exit 1; fi
           git commit -m "content: prepare reviewed article ${ARTICLE_SLUG}"
           git push origin "$BRANCH"

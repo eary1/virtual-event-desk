@@ -5,12 +5,14 @@ on:
     paths:
       - "virtual-event-desk-v0.1/public/**"
       - "virtual-event-desk-v0.1/scripts/check-ui.mjs"
+      - "virtual-event-desk-v0.1/scripts/seo.mjs"
       - ".github/workflows/ui-checks.yml"
   push:
     branches: [main]
     paths:
       - "virtual-event-desk-v0.1/public/**"
       - "virtual-event-desk-v0.1/scripts/check-ui.mjs"
+      - "virtual-event-desk-v0.1/scripts/seo.mjs"
 
 permissions:
   contents: read
@@ -25,3 +27,5 @@ jobs:
           node-version: "22"
       - name: Validate site structure and primary button contrast
         run: node virtual-event-desk-v0.1/scripts/check-ui.mjs
+      - name: Verify sitemap, canonical metadata, and analytics tags
+        run: node virtual-event-desk-v0.1/scripts/seo.mjs verify

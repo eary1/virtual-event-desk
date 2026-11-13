@@ -32,5 +32,7 @@ jobs:
         run: node scripts/guides.mjs validate
       - name: Verify approved output
         run: node scripts/guides.mjs verify
+      - name: Verify search visibility files
+        run: node scripts/seo.mjs verify
       - name: Run publishing tests
         run: node --test scripts/guides.test.mjs

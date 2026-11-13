@@ -2,6 +2,7 @@
 import { readFile, readdir, writeFile, mkdir } from 'node:fs/promises';
 import path from 'node:path';
 import { fileURLToPath } from 'node:url';
+import { decorateHtml } from './seo.mjs';
 
 const root = fileURLToPath(new URL('../', import.meta.url));
 const articlesDir = path.join(root, 'content', 'articles');
@@ -85,10 +86,10 @@ export function renderArticle(article, template) {
     '<a class="btn" href="/planner/">プランナーを使う →</a><hr class="divider">' +
     '<a href="/guides/">→ ガイド一覧</a></aside></div></section></main>';
   if (!template.includes('<main id="main">') || !template.includes('<title>')) throw new Error('既存テンプレートが見つかりません');
-  return template
+  return decorateHtml(template
     .replace(/<title>[^<]*<\/title>/, '<title>' + title + ' | バーチャルイベント準備室</title>')
     .replace(/<meta name="description" content="[^"]*">/, '<meta name="description" content="' + escapeHtml(article.summary) + '">')
-    .replace(/<main id="main">[\s\S]*?<\/main>/, main);
+    .replace(/<main id="main">[\s\S]*?<\/main>/, main), '/guides/' + article.slug + '/');
 }
 
 function renderCard(a) {
