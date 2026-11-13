@@ -1,0 +1,4 @@
+User-agent: *
+Allow: /
+
+Sitemap: https://virtual-event-desk.virtual-event-deskfox-labworkersdev.workers.dev/sitemap.xml
