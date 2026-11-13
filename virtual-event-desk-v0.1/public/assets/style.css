@@ -7,3 +7,8 @@
 @media(prefers-reduced-motion:reduce){html{scroll-behavior:auto}.btn{transition:none}}
 /* The UA hidden attribute must beat our layout display declarations. */
 [hidden]{display:none!important}
+
+/* Article sidebar contrast fix: the generic sidebar link rule must not override CTA colors. */
+.aside-card a.btn,.aside-card a.btn:hover,.aside-card a.btn:focus-visible{color:var(--primaryink);display:flex;align-items:center;justify-content:center;font-size:15px;font-weight:850;line-height:1.45;min-height:48px;text-align:center}
+.aside-card a:not(.btn){color:#e1eef8;text-decoration:underline;text-decoration-color:rgba(225,238,248,.38);text-underline-offset:3px}
+.aside-card a:not(.btn):hover{color:var(--primary);text-decoration-color:currentColor}
